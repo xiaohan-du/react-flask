@@ -1,0 +1,49 @@
+{
+    "targets": [
+      {
+        "id": 1,
+        "category": "clothes",
+        "difficulty": 1,
+        "words": [
+          "sweater",
+          "shirt"
+        ]
+      },
+      {
+        "id": 2,
+        "category": "car brands",
+        "difficulty": 3,
+        "words": [
+          "tesla model s",
+          "ford fiesta"
+        ]
+      },
+      {
+        "id": 3,
+        "category": "animals",
+        "difficulty": 1,
+        "words": [
+          "zebra",
+          "giraffe"
+        ]
+      },
+      {
+        "id": 4,
+        "category": "trees",
+        "difficulty": 1,
+        "words": [
+          "beech",
+          "sycamore"
+        ]
+      },
+      {
+        "id": 5,
+        "category": "movies",
+        "difficulty": 4,
+        "words": [
+          "Mulholland Drive",
+          "Kill Bill"
+        ]
+      }
+    ]
+  }
