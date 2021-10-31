@@ -1,0 +1,98 @@
+{
+  "targets": [
+    {
+      "id": 1,
+      "category": "clothes",
+      "difficulty": 1,
+      "words": [
+        "sweater",
+        "shirt",
+        "jeans",
+        "gloves",
+        "suit",
+        "flip flops",
+        "shorts",
+        "cardigan",
+        "jacket",
+        "bow tie",
+        "vest",
+        "polo shirt",
+        "jumper",
+        "bathrobe"
+      ]
+    },
+    {
+      "id": 2,
+      "category": "car brands",
+      "difficulty": 3,
+      "words": [
+        "tesla model s",
+        "ford fiesta",
+        "peugeot traveller",
+        "fiat panda",
+        "honda jazz",
+        "citroen picasso",
+        "alfa romeo giulia",
+        "jaguar s type",
+        "land rover defender",
+        "volkswagen caravelle",
+        "nissan juke",
+        "skoda fabia"
+      ]
+    },
+    {
+      "id": 3,
+      "category": "animals",
+      "difficulty": 1,
+      "words": [
+        "zebra",
+        "giraffe",
+        "meerkat",
+        "otter",
+        "sea turtle",
+        "crocodile",
+        "rattle snake",
+        "dolphin",
+        "squirrel",
+        "asian elephant",
+        "chimpanzee",
+        "blue whale",
+        "kangaroo"
+      ]
+    },
+    {
+      "id": 4,
+      "category": "trees",
+      "difficulty": 1,
+      "words": [
+        "beech",
+        "sycamore",
+        "lilac",
+        "maple",
+        "spruce",
+        "chestnut",
+        "birch",
+        "walnut",
+        "willow",
+        "elder"
+      ]
+    },
+    {
+      "id": 5,
+      "category": "movies",
+      "difficulty": 4,
+      "words": [
+        "Mulholland Drive",
+        "Kill Bill",
+        "Shawshank Redemption",
+        "Blade Runner",
+        "The Devil Wears Prada",
+        "chestnut",
+        "birch",
+        "walnut",
+        "willow",
+        "elder"
+      ]
+    }
+  ]
+}
