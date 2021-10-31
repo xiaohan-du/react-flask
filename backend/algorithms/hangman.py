@@ -1,5 +1,5 @@
 from functions import *
-import json
+import json, random
 
 is_play = None
 
@@ -10,54 +10,67 @@ pool_data = target_pool['targets']
 # get category and its id
 pool_length = len(pool_data)
 
-chooose_and_delete_a_word(pool_data)
+target_data = chooose_a_category(pool_data)
 
-# while is_play not in ('yes', 'no'):
-#     is_play = input('Start game? (y=Yes/n=No) ')
-#     if is_play == 'y':
+print(f"Your chosen category is: {target_data['id']} -- {target_data['category']}")
+print(f"Difficulty: {target_data['difficulty']}")
 
-#         target = random.choice(target_pool)
+word_list = target_data['words']
 
-#         iterations = len(target) - target.count(' ')
+for i in range(1, len(word_list)):
 
-#         underlines = plot_underlines(target)
+    target = random.choice(word_list)
 
-#         pool = generate_pool(target)
+    word_list = delete_the_guessed_word(target, word_list)
 
-#         guessed = []
+    print(word_list)
 
-#         underlines_remain = len(underlines)
+while is_play not in ('yes', 'no'):
+    is_play = input('Start game? (y=Yes/n=No) ')
+    if is_play == 'y':
 
-#         while iterations > 0:
-#         inp = input('Please type a letter in lower case: ')
-#         guessed = list(set(guessed))
+        target = random.choice(target_pool)
 
-#         if underlines_remain == 0:
-#             iterations = 0
-#             print('Dead')
+        iterations = len(target) - target.count(' ')
 
-#         elif inp in pool:
-#             underlines = user_guess_once(target, underlines, inp)
-#             correct_num = underlines.count(inp)
-#             iterations -= correct_num
-#             pool.remove(inp)
-#             guessed.append(inp)
-#             print(underlines)
+        underlines = plot_underlines(target)
 
-#         elif len(inp) > 1:
-#             print('Only 1 letter allowed each time!')
+        pool = generate_pool(target)
 
-#         elif isinstance(inp, str) == False:
-#             print('Only letters allowed!')
+        guessed = []
 
-#         elif inp in guessed:
-#             guessed.append(inp)
-#             print('Already guessed!')
+        underlines_remain = len(underlines)
 
-#         else:
-#             guessed.append(inp)
-#             underlines_remain -= 1
-#             print(f'Closer to death, {underlines_remain} steps left')
+        while iterations > 0:
+        inp = input('Please type a letter in lower case: ')
+        guessed = list(set(guessed))
 
-# elif is_play == 'n':
-#     break
+        if underlines_remain == 0:
+            iterations = 0
+            print('Dead')
+
+        elif inp in pool:
+            underlines = user_guess_once(target, underlines, inp)
+            correct_num = underlines.count(inp)
+            iterations -= correct_num
+            pool.remove(inp)
+            guessed.append(inp)
+            print(underlines)
+
+        elif len(inp) > 1:
+            print('Only 1 letter allowed each time!')
+
+        elif isinstance(inp, str) == False:
+            print('Only letters allowed!')
+
+        elif inp in guessed:
+            guessed.append(inp)
+            print('Already guessed!')
+
+        else:
+            guessed.append(inp)
+            underlines_remain -= 1
+            print(f'Closer to death, {underlines_remain} steps left')
+
+elif is_play == 'n':
+    break

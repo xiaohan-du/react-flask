@@ -38,7 +38,7 @@ def generate_pool(target):
     return pool
 
 
-def chooose_and_delete_a_word(pool_data):
+def chooose_a_category(pool_data):
     #  choose a word, oncec guess is complete, delete it from the list
     #  chosen id being removed first, then chosen word is removed
     #  @param {target_pool} the json data file content
@@ -47,7 +47,8 @@ def chooose_and_delete_a_word(pool_data):
     id_list = list(range(pool_length))
     id_list = [item + 1 for item in id_list]
     candidate_id = id_list[random.randrange(0, pool_length)]
-    print(f"Your chosen category is {pool_data[candidate_id - 1]['category']}")
-    print(f"Difficulty: {pool_data[candidate_id - 1]['difficulty']}")
-    id_list = id_list.remove(candidate_id)
-    return candidate_id
+    return pool_data[candidate_id - 1]
+
+def delete_the_guessed_word(target, word_list):
+    word_list.remove(target)
+    return word_list
