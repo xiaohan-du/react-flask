@@ -1,23 +1,21 @@
 import random
 
-
-def plot_underlines(target):
+def plot_dashes(target):
     #  plot dashes based on {target} length, space is a space, target can be a phrase
     #  @param {target} the input string
-    #  @return {underlines} a line of underlines, space is a space
+    #  @return {dashes} a line of dashes, space is a space
     target = target.split(' ')
-    underlines = ''
+    dashes = ''
     for item in target:
-        underlines = underlines + '_' * len(item) + ' '
-    return underlines[:-1]
+        dashes = dashes + '-' * len(item) + ' '
+    return dashes[:-1]
 
-
-def user_guess_once(target, underlines, inp):
+def user_guess_once(target, dashes, inp):
     #  plot dashes based on user input, replace underline with matched char
     #  @param {target} the input string
-    #  @param {underlines} the input underlines
+    #  @param {dashes} the input dashes
     #  @param {inp} user input letter
-    #  @return {underlines} underline where correct letters fill related position
+    #  @return {dashes} underline where correct letters fill related position
     target = target.lower()
 
     if inp.isdigit():
@@ -25,10 +23,9 @@ def user_guess_once(target, underlines, inp):
     else:
         for idx, item in enumerate(target):
             if item == inp:
-                underlines = underlines[:idx] + inp + underlines[idx + 1:]
+                dashes = dashes[:idx] + inp + dashes[idx + 1:]
 
-    return underlines
-
+    return dashes
 
 def generate_pool(target):
     #  generate unique characters pool
@@ -37,12 +34,20 @@ def generate_pool(target):
     pool = set(list(target))
     return pool
 
+def get_categories(pool_data):
+    #  get words categories
+    #  @param {pool_data} the json data file content
+    #  @return {categories} list of categories
+    categories = []
+    for item in pool_data:
+        categories.append({'id': item['id'], 'category': item['category']})
+    return categories
 
 def chooose_a_category(pool_data):
     #  choose a word, oncec guess is complete, delete it from the list
     #  chosen id being removed first, then chosen word is removed
-    #  @param {target_pool} the json data file content
-    #  @return {target} the target word to be guessed
+    #  @param {pool_data} the json data file content
+    #  @return {pool_data[candidate_id - 1]} the target word to be guessed
     pool_length = len(pool_data)
     id_list = list(range(pool_length))
     id_list = [item + 1 for item in id_list]

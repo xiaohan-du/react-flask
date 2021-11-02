@@ -3,37 +3,53 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
+import Categories from './components/Categories';
 
 function App() {
-  const [getMessage, setGetMessage] = useState({})
+  const [status, setStatus] = useState();
+
+  const [dashes, setDashes] = useState();
+
+  const [categories, setCategories] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://localhost:5000/flask/hello').then(response => {
+    axios.get('http://localhost:5000').then(response => {
       console.log("SUCCESS", response)
-      setGetMessage(response)
+      setStatus(response.status);
+      setDashes(response.data.dashes);
+      setCategories(response.data.categories)
+      loadInputs(response.data.dashes);
+      
     }).catch(error => {
       console.log(error)
     })
   }, []);
 
-  const sendData = () => {
-    
-  };
+  const loadInputs = (dashes) => {
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>React + Flask Tutorial</p>
-        <form id="submitQuote" >
-          <label htmlFor="source">Test: </label>
-          <input/>
-          <button type="submit" onClick={sendData}>Submit</button>
-      </form>
-        <div>{getMessage.status === 200 ? 
-          <h3>{getMessage.data.message}</h3>
-          :
-          <h3>LOADING</h3>}</div>
+        <p>Hangman</p>
+        <div>
+          {
+            status === 200 
+            ? 
+            <div>
+              <div>
+                {dashes}
+              </div>
+              <div className="btn-group">
+                <Categories categories={categories}/>
+              </div>
+            </div>
+            :
+            <h3>LOADING</h3>
+          }
+          
+        </div>
       </header>
     </div>
   );

@@ -7,6 +7,11 @@ class ApiHandler(Resource):
             'message': "Hello Api Handler"
         }
 
+    def get_dashes():
+        return {
+            'message': '____ ______'
+        }
+
     def post(self):
         print(self)
         parser = reqparse.RequestParser()

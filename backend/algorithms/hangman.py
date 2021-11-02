@@ -1,4 +1,4 @@
-from functions import *
+from algorithmFunctions import *
 import json, random
 
 is_play = None
@@ -27,29 +27,29 @@ while is_play not in ('yes', 'no') and len(word_list) != 0:
 
         iterations = len(target) - target.count(' ')
 
-        underlines = plot_underlines(target)
+        dashes = plot_dashes(target)
 
         pool = generate_pool(target)
 
         guessed = []
 
-        underlines_remain = len(underlines)
+        dashes_remain = len(dashes)
 
         while iterations > 0:
             inp = input('Please type a letter in lower case: ')
             guessed = list(set(guessed))
 
-            if underlines_remain == 0:
+            if dashes_remain == 0:
                 iterations = 0
                 print('Dead')
 
             elif inp in pool:
-                underlines = user_guess_once(target, underlines, inp)
-                correct_num = underlines.count(inp)
+                dashes = user_guess_once(target, dashes, inp)
+                correct_num = dashes.count(inp)
                 iterations -= correct_num
                 pool.remove(inp)
                 guessed.append(inp)
-                print(underlines)
+                print(dashes)
 
             elif len(inp) > 1:
                 print('Only 1 letter allowed each time!')
@@ -63,8 +63,8 @@ while is_play not in ('yes', 'no') and len(word_list) != 0:
 
             else:
                 guessed.append(inp)
-                underlines_remain -= 1
-                print(f'Closer to death, {underlines_remain} steps left')
+                dashes_remain -= 1
+                print(f'Closer to death, {dashes_remain} steps left')
 
     elif is_play == 'n':
         break
