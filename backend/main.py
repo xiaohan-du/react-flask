@@ -14,7 +14,7 @@
 # api.add_resource(ApiHandler, '/flask')
 
 from flask_cors import CORS #comment this on deployment
-from flask import Flask
+from flask import Flask, request
 from algorithms import algorithmFunctions as af
 import json
 
@@ -26,11 +26,17 @@ CORS(app) #comment this on deployment
 
 pool_data = target_pool['targets']
 categories = af.get_categories(pool_data)
-dashes = af.plot_dashes('hello world')
+dashes = af.plot_dashes('for loop is good')
 
-@app.route('/', methods = ['GET'])
+@app.route('/', methods = ['GET', 'POST'])
 def get_dashes():
-    return {
-        'dashes': dashes,
-        'categories': categories
-    }
+    if request.method == 'GET':
+        return {
+            'dashes': dashes,
+            'categories': categories
+        }
+    elif request.method == 'POST':
+        breakpoint()
+        return {
+
+        }

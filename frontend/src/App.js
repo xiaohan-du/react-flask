@@ -13,20 +13,25 @@ function App() {
   const [categories, setCategories] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://localhost:5000').then(response => {
+    axios.get('http://127.0.0.1:5000/').then(response => {
       console.log("SUCCESS", response)
       setStatus(response.status);
       setDashes(response.data.dashes);
-      setCategories(response.data.categories)
-      loadInputs(response.data.dashes);
-      
+      setCategories(response.data.categories);
     }).catch(error => {
       console.log(error)
-    })
+    });
   }, []);
 
-  const loadInputs = (dashes) => {
-  }
+  const handleInput = (e) => {
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:5000/',
+      data: {
+        keyPress: e.target.value
+      }
+    });
+  };
 
   return (
     <div className="App">
@@ -43,6 +48,9 @@ function App() {
               </div>
               <div className="btn-group">
                 <Categories categories={categories}/>
+              </div>
+              <div>
+                <input maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
               </div>
             </div>
             :
