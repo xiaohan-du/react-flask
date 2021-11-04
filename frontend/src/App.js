@@ -24,13 +24,13 @@ function App() {
   }, []);
 
   const handleInput = (e) => {
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:5000/',
-      data: {
-        keyPress: e.target.value
-      }
-    });
+    let keyPress = e.target.value;
+    axios.post('http://127.0.0.1:5000', {
+      keyPress: keyPress
+    })
+    .then((response) => {
+      console.log(response)
+    })
   };
 
   return (
@@ -49,9 +49,10 @@ function App() {
               <div className="btn-group">
                 <Categories categories={categories}/>
               </div>
-              <div>
-                <input maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
-              </div>
+              <form action='/'>
+                <label for='letterInput'>Type a letter here:</label>
+                <input id='letterInput' maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
+              </form>
             </div>
             :
             <h3>LOADING</h3>

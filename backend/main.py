@@ -16,6 +16,7 @@
 from flask_cors import CORS #comment this on deployment
 from flask import Flask, request
 from algorithms import algorithmFunctions as af
+from algorithms import hangman as hm
 import json
 
 with open('data/test_pool.json') as f:
@@ -26,7 +27,7 @@ CORS(app) #comment this on deployment
 
 pool_data = target_pool['targets']
 categories = af.get_categories(pool_data)
-dashes = af.plot_dashes('for loop is good')
+dashes = hm.hangman()
 
 @app.route('/', methods = ['GET', 'POST'])
 def get_dashes():
@@ -36,7 +37,7 @@ def get_dashes():
             'categories': categories
         }
     elif request.method == 'POST':
-        breakpoint()
+        key_press = request.get_json(silent=True)['keyPress']
         return {
 
         }
