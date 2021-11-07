@@ -27,17 +27,31 @@ CORS(app) #comment this on deployment
 
 pool_data = target_pool['targets']
 categories = af.get_categories(pool_data)
-dashes = hm.hangman()
-
+dashes, target = hm.hangman()
 @app.route('/', methods = ['GET', 'POST'])
 def get_dashes():
     if request.method == 'GET':
         return {
             'dashes': dashes,
-            'categories': categories
+            'categories': categories,
+            'target': target
         }
     elif request.method == 'POST':
         key_press = request.get_json(silent=True)['keyPress']
         return {
 
         }
+
+@app.route('/<chosen_category>', methods = ['GET', 'POST'])
+def get_category(chosen_category):
+    if request.method == 'GET':
+        return f'Hello {chosen_category}'
+    if request.method == 'POST':
+        chosen_category = request.get_json(silent=True)['chosenCategory']
+        for category in categories:
+            if chosen_category == category['category']:
+
+                return 'he'
+                # breakpoint()
+                # print(f"The chosen category is: {target_data['id']} -- {target_data['category']}")
+                # breakpoint()

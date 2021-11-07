@@ -12,12 +12,19 @@ function App() {
 
   const [categories, setCategories] = useState([]);
 
+  const [target, setTarget] = useState('');
+
+  const [category, setCategory] = useState('');
+
+  const [showCategory, setShowCategory] = useState(false);
+
   useEffect(()=>{
     axios.get('http://127.0.0.1:5000/').then(response => {
       console.log("SUCCESS", response)
       setStatus(response.status);
       setDashes(response.data.dashes);
       setCategories(response.data.categories);
+      setTarget(response.data.target)
     }).catch(error => {
       console.log(error)
     });
@@ -26,12 +33,25 @@ function App() {
   const handleInput = (e) => {
     let keyPress = e.target.value;
     axios.post('http://127.0.0.1:5000', {
-      keyPress: keyPress
+      keyPress: keyPress,
     })
     .then((response) => {
       console.log(response)
     })
   };
+
+  const showAndPostDashesAndInput = (category) => {
+    axios.post(`http://127.0.0.1:5000/${category}`, {
+        chosenCategory: category
+    })
+    .then((response) => {
+        console.log(response);
+        setShowCategory(true);
+    })
+    .catch(error => {
+        console.log(error)
+    });
+};
 
   return (
     <div className="App">
@@ -43,14 +63,25 @@ function App() {
             status === 200 
             ? 
             <div>
-              <div>
-                {dashes}
-              </div>
               <div className="btn-group">
-                <Categories categories={categories}/>
+                <Categories 
+                  categories={categories} 
+                  showAndPostDashesAndInput={showAndPostDashesAndInput}
+                  setCategory={setCategory}
+                />
               </div>
+              {
+                showCategory ? 
+                  <div>
+                    <div>{target}</div>
+                    <div>Your chosen category is {category}</div>
+                    <div>{dashes}</div>
+                  </div> : 
+                  null
+              }
+              
               <form action='/'>
-                <label for='letterInput'>Type a letter here:</label>
+                <label htmlFor='letterInput'>Type a letter here:</label>
                 <input id='letterInput' maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
               </form>
             </div>

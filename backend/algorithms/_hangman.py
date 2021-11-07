@@ -10,7 +10,7 @@ pool_data = target_pool['targets']
 # get category and its id
 pool_length = len(pool_data)
 
-target_data = chooose_a_category(pool_data)
+target_data = chooose_from_a_category(pool_data)
 
 print(f"Your chosen category is: {target_data['id']} -- {target_data['category']}")
 print(f"Difficulty: {target_data['difficulty']}")
