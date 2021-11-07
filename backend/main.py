@@ -19,8 +19,6 @@ from algorithms import algorithmFunctions as af
 from algorithms import hangman as hm
 import json
 
-from backend.algorithms.hangman import hangman
-
 with open('data/test_pool.json') as f:
     target_pool = json.load(f)
 
@@ -29,7 +27,6 @@ CORS(app) #comment this on deployment
 
 pool_data = target_pool['targets']
 categories = af.get_categories(pool_data)
-dashes, target = hm.hangman('animals')
 
 @app.route('/', methods = ['GET'])
 def home():
@@ -40,14 +37,12 @@ def home():
 
 @app.route('/<chosen_category>', methods = ['GET', 'POST'])
 def get_word_from_chosen_category(chosen_category):
-    if request.method == 'GET':
-        return f'Hello {chosen_category}'
     if request.method == 'POST':
-        key_press = request.get_json(silent=True)['keyPress']
+        # key_press = request.get_json(silent=True)['keyPress']
         chosen_category = request.get_json(silent=True)['chosenCategory']
-        for category in categories:
-            if chosen_category == category['category']:
-                dashes, target = hm.hangman(chosen_category)
-
-                breakpoint()
-                return 'he'
+        category_details = af.get_category_details(pool_data, chosen_category)
+        dashes, target = hm.hangman(category_details)
+        return {
+            'dashes': dashes,
+            'target': target
+        }

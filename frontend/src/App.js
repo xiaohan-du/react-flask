@@ -24,9 +24,7 @@ function App() {
     axios.get(localhost).then(response => {
       console.log("SUCCESS", response)
       setStatus(response.status);
-      setDashes(response.data.dashes);
       setCategories(response.data.categories);
-      setTarget(response.data.target)
     }).catch(error => {
       console.log(error)
     });
@@ -49,6 +47,8 @@ function App() {
     .then((response) => {
         console.log(response);
         setShowCategory(true);
+        setDashes(response.data.dashes);
+        setTarget(response.data.target);
     })
     .catch(error => {
         console.log(error)
