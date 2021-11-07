@@ -18,8 +18,10 @@ function App() {
 
   const [showCategory, setShowCategory] = useState(false);
 
+  const localhost = 'http://127.0.0.1:5000/';
+
   useEffect(()=>{
-    axios.get('http://127.0.0.1:5000/').then(response => {
+    axios.get(localhost).then(response => {
       console.log("SUCCESS", response)
       setStatus(response.status);
       setDashes(response.data.dashes);
@@ -32,7 +34,7 @@ function App() {
 
   const handleInput = (e) => {
     let keyPress = e.target.value;
-    axios.post('http://127.0.0.1:5000', {
+    axios.post(localhost, {
       keyPress: keyPress,
     })
     .then((response) => {
@@ -41,7 +43,7 @@ function App() {
   };
 
   const showAndPostDashesAndInput = (category) => {
-    axios.post(`http://127.0.0.1:5000/${category}`, {
+    axios.post(`${localhost}${category}`, {
         chosenCategory: category
     })
     .then((response) => {
