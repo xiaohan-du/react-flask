@@ -1,15 +1,32 @@
-import json, random
-from algorithms import algorithmFunctions as af
+import random
 
-with open('data/test_pool.json') as f:
-    target_pool = json.load(f)
+class Hangman:
+    def __init__(self, pool_data):
+        self.pool_data = pool_data
 
-pool_data = target_pool['targets']
-categories = af.get_categories(pool_data)
-category = af.get_category_details(pool_data, 'animals')
+    def get_categories(self):
+        #  get words categories
+        #  @return {categories} list of category id and content
+        categories = []
+        for item in self.pool_data:
+            categories.append({'id': item['id'], 'category': item['category']})
+        return categories
 
-def hangman(category):
-    targets = category['words']
-    target = random.choice(targets)
-    dashes = af.plot_dashes(target)
-    return dashes, target
+    def get_target(self, chosen_category_name):
+        #  get a random target word
+        #  @param {chosen_category_name} the chose category name
+        #  @return {data} the chosen category details
+        for data in self.pool_data:
+            if data['category'] == chosen_category_name:
+                return random.choice(data['words'])
+
+    def plot_dashes(self, target):
+        #  plot dashes based on {target} length, space is a space, target can be a phrase
+        #  @param {target} the target word
+        #  @return {dashes} a line of dashes, space is a space
+        target = target.split(' ')
+        dashes = ''
+        for item in target:
+            dashes = dashes + '-' * len(item) + ' '
+        return dashes[:-1]
+
