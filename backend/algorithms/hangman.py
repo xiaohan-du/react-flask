@@ -6,11 +6,10 @@ with open('data/test_pool.json') as f:
 
 pool_data = target_pool['targets']
 categories = af.get_categories(pool_data)
-target_data = af.chooose_a_category(pool_data)
-word_list = target_data['words']
+category = af.get_category_details(pool_data, 'animals')
 
-
-def hangman():
-    target = random.choice(word_list)
+def hangman(category):
+    targets = category['words']
+    target = random.choice(targets)
     dashes = af.plot_dashes(target)
-    return dashes
+    return dashes, target

@@ -43,16 +43,14 @@ def get_categories(pool_data):
         categories.append({'id': item['id'], 'category': item['category']})
     return categories
 
-def chooose_a_category(pool_data):
-    #  choose a word, oncec guess is complete, delete it from the list
-    #  chosen id being removed first, then chosen word is removed
+def get_category_details(pool_data, chosen_category):
+    #  return chosen category information from {pool_data}
     #  @param {pool_data} the json data file content
-    #  @return {pool_data[candidate_id - 1]} the target word to be guessed
-    pool_length = len(pool_data)
-    id_list = list(range(pool_length))
-    id_list = [item + 1 for item in id_list]
-    candidate_id = id_list[random.randrange(0, pool_length)]
-    return pool_data[candidate_id - 1]
+    #  @param {chosen_category} the chosen category name
+    #  @return {pool_data[candidate_id - 1]} the chosen category information
+    for data in pool_data:
+        if data['category'] == chosen_category:
+            return data
 
 def delete_the_guessed_word(target, word_list):
     word_list.remove(target)
