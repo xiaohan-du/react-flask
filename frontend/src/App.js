@@ -18,7 +18,7 @@ function App() {
 
   const [showCategory, setShowCategory] = useState(false);
 
-  const localhost = 'http://127.0.0.1:5000/';
+  const localhost = 'http://127.0.0.1:5000';
 
   useEffect(()=>{
     axios.get(localhost).then(response => {
@@ -32,16 +32,17 @@ function App() {
 
   const handleInput = (e) => {
     let keyPress = e.target.value;
-    axios.post(localhost, {
-      keyPress: keyPress,
+    axios.post(`${localhost}/keypress`, {
+      keyPress: keyPress
     })
     .then((response) => {
       console.log(response)
+      setDashes(response.data.dashes)
     })
   };
 
   const showAndPostDashesAndInput = (category) => {
-    axios.post(`${localhost}${category}`, {
+    axios.post(`${localhost}/${category}`, {
         chosenCategory: category
     })
     .then((response) => {
@@ -78,14 +79,15 @@ function App() {
                     <div>{target}</div>
                     <div>Your chosen category is {category}</div>
                     <div>{dashes}</div>
+                    <form action='/'>
+                      <label htmlFor='letterInput'>Type a letter here:</label>
+                      <input id='letterInput' maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
+                    </form>
                   </div> : 
                   null
               }
               
-              <form action='/'>
-                <label htmlFor='letterInput'>Type a letter here:</label>
-                <input id='letterInput' maxLength='1' size='1' type='text' onKeyUp={handleInput}/>
-              </form>
+              
             </div>
             :
             <h3>LOADING</h3>
