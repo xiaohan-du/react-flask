@@ -33,11 +33,11 @@ def get_word_from_chosen_category(chosen_category_name):
             'target': hangman.target
         }
 
-@app.route('/keypress', methods = ['POST'])
-def verify_keypress():
+@app.route('/keyup', methods = ['POST'])
+def verify_keyup():
     if request.method == 'POST':
-        key_press = request.get_json(silent=True)['keyPress']
-        hangman.user_guess_once(key_press)
+        key_up = request.get_json(silent=True)['keyUp']
+        hangman.user_guess_once(key_up)
         return {
             'dashes': hangman.dashes
         }
