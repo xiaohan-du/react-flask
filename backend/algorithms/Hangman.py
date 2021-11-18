@@ -6,6 +6,8 @@ class Hangman:
         self.target = ''
         self.dashes = ''
         self.categories = []
+        self.guessed = []
+        self.message = ''
 
     def get_categories(self):
         #  get words categories
@@ -22,7 +24,6 @@ class Hangman:
         for data in self.pool_data:
             if data['category'] == chosen_category_name:
                 self.target = random.choice(data['words'])
-                return random.choice(data['words'])
 
     def get_and_plot_dashes(self):
         #  plot dashes based on {target} length, space is a space, target can be a phrase
