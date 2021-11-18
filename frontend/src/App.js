@@ -16,11 +16,17 @@ function App() {
 
   const [category, setCategory] = useState('');
 
+  const [message, setMessage] = useState('');
+
   const [showCategory, setShowCategory] = useState(false);
 
   const localhost = 'http://127.0.0.1:5000';
 
   const [inputValue, setInputValue] = useState('');
+
+  const [guessed, setGuessed] = useState([]);
+
+  const [alphabet, setAlphabet] = useState('abcdefghijklmnopqrstuvwxyz');
 
   useEffect(() => {
     axios.get(localhost).then(response => {
@@ -38,8 +44,10 @@ function App() {
       keyUp: keyUp
     })
       .then((response) => {
-        console.log(response)
-        setDashes(response.data.dashes)
+        console.log(response);
+        setDashes(response.data.dashes);
+        setMessage(response.data.message);
+        setGuessed(response.data.guessed);
       });
   };
 
@@ -57,10 +65,26 @@ function App() {
         setShowCategory(true);
         setDashes(response.data.dashes);
         setTarget(response.data.target);
+        setInputValue('');
       })
       .catch(error => {
         console.log(error)
       });
+  };
+
+  useEffect(() => {
+    let al = 'abcdefghijklmnopqrstuvwxyz';
+    al.split('').map((char, index) => {
+      if (guessed.includes(char)) {
+        al = al.substr(0, index) + al[index].toUpperCase() + al.substr(index + 1);
+      }
+      return null
+    })
+    setAlphabet(al);
+  }, [guessed]);
+
+  const sortAlphabets = (inp) => {
+    return inp.sort().join('');
   };
 
   return (
@@ -78,14 +102,19 @@ function App() {
                     categories={categories}
                     showAndPostDashesAndInput={showAndPostDashesAndInput}
                     setCategory={setCategory}
+                    setAlphabet={setAlphabet}
+                    setGuessed={setGuessed}
                   />
                 </div>
                 {
                   showCategory ?
                     <div>
                       <div>{target}</div>
+                      <div>{alphabet}</div>
                       <div>Your chosen category is {category}</div>
                       <div>{dashes}</div>
+                      <div>{message}</div>
+                      <div>You have guessed {sortAlphabets(guessed)}</div>
                       <form action='/'>
                         <label htmlFor='letterInput'>Type a letter here:</label>
                         <input
@@ -100,8 +129,6 @@ function App() {
                     </div> :
                     null
                 }
-
-
               </div>
               :
               <h3>LOADING</h3>
